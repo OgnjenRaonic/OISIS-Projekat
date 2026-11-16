@@ -1,0 +1,17 @@
+<Window x:Class="WpfClient.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Knjige" Height="260" Width="360"
+        WindowStartupLocation="CenterScreen">
+    <StackPanel Margin="20">
+        <TextBlock Text="Korisničko ime" />
+        <TextBox x:Name="UsernameInput" Margin="0,4,0,12" />
+
+        <TextBlock Text="Lozinka" />
+        <PasswordBox x:Name="PasswordInput" Margin="0,4,0,12" />
+
+        <Button Content="Prijava" Width="100" HorizontalAlignment="Left" Click="LoginButton_Click" />
+
+        <TextBlock x:Name="StatusText" Margin="0,12,0,0" />
+    </StackPanel>
+</Window>
