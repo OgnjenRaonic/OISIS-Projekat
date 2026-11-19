@@ -13,8 +13,16 @@ public static class Program
     {
         // Ovde se povezuju zavisnosti: DAO -> Service -> Controller -> View
         IUserDao userDao = new UserDao();
+        IAdresaDao adresaDao = new AdresaDao();
+        IAutorDao autorDao = new AutorDao(); 
+        IKnjigaDao knjigaDao = new KnjigaDao();
+        
         var userService = new UserService(userDao);
-        var controller = new MainController(userService);
+        var adresaService = new AdresaService(adresaDao);
+        var autorService = new AutorService(autorDao); 
+        var knjigaService = new KnjigaService(knjigaDao);
+
+        var controller = new MainController(userService, adresaService, autorService, knjigaService);
 
         var app = new App();
         // Kada u App.xaml dodate resurse (stilove i sl.), ovde pozovite app.InitializeComponent();
