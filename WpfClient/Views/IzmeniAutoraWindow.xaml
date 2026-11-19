@@ -1,0 +1,92 @@
+<Window x:Class="WpfClient.Views.IzmeniAutoraWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Izmeni autora"
+        Height="560" Width="560"
+        WindowStartupLocation="CenterOwner">
+    <Grid Margin="12">
+        <TabControl>
+            <!-- Tab Informacije -->
+            <TabItem Header="Informacije">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="0,0,6,0">
+                            <TextBlock Text="Ime *" Margin="0,0,0,2"/>
+                            <TextBox x:Name="txtIme" Margin="0,0,0,8" TextChanged="ValidateForm"/>
+
+                            <TextBlock Text="Prezime *" Margin="0,0,0,2"/>
+                            <TextBox x:Name="txtPrezime" Margin="0,0,0,8" TextChanged="ValidateForm"/>
+
+                            <TextBlock Text="Datum rodjenja *" Margin="0,0,0,2"/>
+                            <DatePicker x:Name="dpDatumRodjenja" Margin="0,0,0,8" SelectedDateChanged="DpDatumRodjenja_SelectedDateChanged"/>
+
+                            <TextBlock Text="Broj licne karte *" Margin="0,0,0,2"/>
+                            <TextBox x:Name="txtBrojLicneKarte" Margin="0,0,0,8" TextChanged="ValidateForm"/>
+
+                            <TextBlock Text="Godine iskustva *" Margin="0,0,0,2"/>
+                            <TextBox x:Name="txtGodineIskustva" Margin="0,0,0,8" TextChanged="ValidateForm"/>
+
+                            <TextBlock Text="Telefon" Margin="0,0,0,2"/>
+                            <TextBox x:Name="txtTelefon" Margin="0,0,0,8"/>
+
+                            <TextBlock Text="E-mejl *" Margin="0,0,0,2"/>
+                            <TextBox x:Name="txtEmail" Margin="0,0,0,10" TextChanged="ValidateForm"/>
+
+                            <TextBlock Text="Adresa" FontWeight="SemiBold" Margin="0,4,0,6"/>
+
+                            <TextBlock Text="Ulica" Margin="0,0,0,2"/>
+                            <TextBox x:Name="txtUlica" Margin="0,0,0,8"/>
+
+                            <TextBlock Text="Broj" Margin="0,0,0,2"/>
+                            <TextBox x:Name="txtBroj" Margin="0,0,0,8"/>
+
+                            <TextBlock Text="Grad" Margin="0,0,0,2"/>
+                            <TextBox x:Name="txtGrad" Margin="0,0,0,8"/>
+
+                            <TextBlock Text="Drzava" Margin="0,0,0,2"/>
+                            <TextBox x:Name="txtDrzava" Margin="0,0,0,8"/>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+                        <Button Content="Odustani" Width="90" Height="30" Margin="0,0,8,0" IsCancel="True" Click="BtnOdustani_Click"/>
+                        <Button x:Name="btnPotvrdi" Content="Potvrdi" Width="90" Height="30" IsEnabled="False" Click="BtnPotvrdi_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- Tab Knjige -->
+            <TabItem Header="Knjige">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                        <Button Content="Dodaj knjigu" Padding="10,4" Margin="0,0,8,0" Click="BtnDodajKnjigu_Click"/>
+                        <Button Content="Ukloni knjigu" Padding="10,4" Click="BtnUkloniKnjigu_Click"/>
+                    </StackPanel>
+
+                    <DataGrid x:Name="dgAutorKnjige"
+                              Grid.Row="1"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              SelectionMode="Single">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ISBN" Binding="{Binding ISBN}" Width="*"/>
+                            <DataGridTextColumn Header="Naziv" Binding="{Binding Naziv}" Width="2*"/>
+                            <DataGridTextColumn Header="Godina izdanja" Binding="{Binding GodinaIzdanja}" Width="*"/>
+                            <DataGridTextColumn Header="Zanr" Binding="{Binding Zanr}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

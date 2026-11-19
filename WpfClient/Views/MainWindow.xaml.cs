@@ -261,7 +261,29 @@ public partial class MainWindow : Window
                 return;
             }
 
-            MessageBox.Show(this, $"{selectedAutor.Ime} {selectedAutor.Prezime}", LocalizationManager.Get("MenuEdit"), MessageBoxButton.OK, MessageBoxImage.Information);
+            var dialog = new IzmeniAutoraWindow(
+                selectedAutor,
+                GetKnjigeZaAutora,
+                GetDostupneKnjigeZaAutora,
+                DodajKnjiguAutoru,
+                UkloniKnjiguSaAutora)
+            {
+                Owner = this
+            };
+
+            if (dialog.ShowDialog() == true || dialog.PodaciIzmenjeni)
+            {
+                if (selectedAutor.Adresa != null)
+                {
+                    if (selectedAutor.Adresa.Id <= 0)
+                        _adresaService.Add(selectedAutor.Adresa);
+                    else
+                        _adresaService.Update(selectedAutor.Adresa);
+                }
+
+                _autorService.Update(selectedAutor);
+                ApplySearchAndSort();
+            }
         }
         else if (mainTabControl.SelectedItem == tabKnjige)
         {
@@ -271,8 +293,86 @@ public partial class MainWindow : Window
                 return;
             }
 
-            MessageBox.Show(this, selectedKnjiga.Naziv, LocalizationManager.Get("MenuEdit"), MessageBoxButton.OK, MessageBoxImage.Information);
+            var dialog = new IzmeniKnjiguWindow(
+                selectedKnjiga,
+                GetTrenutniAutorZaKnjigu,
+                () => _autorService.GetAll().ToList(),
+                DodajAutoraNaKnjigu,
+                UkloniAutoraSaKnjige)
+            {
+                Owner = this
+            };
+
+            if (dialog.ShowDialog() == true || dialog.PodaciIzmenjeni)
+            {
+                _knjigaService.Update(selectedKnjiga);
+                ApplySearchAndSort();
+            }
         }
+    }
+
+    private List<Knjiga> GetKnjigeZaAutora(Autor autor)
+    {
+        var sveKnjige = _knjigaService.GetAll();
+        return sveKnjige
+            .Where(k => autor.KnjigaIds.Contains(k.Id) || k.AutorIds.Contains(autor.Id))
+            .ToList();
+    }
+
+    private List<Knjiga> GetDostupneKnjigeZaAutora(Autor autor)
+    {
+        var autorKnjigeIds = GetKnjigeZaAutora(autor).Select(k => k.Id).ToHashSet();
+        return _knjigaService.GetAll()
+            .Where(k => !autorKnjigeIds.Contains(k.Id))
+            .ToList();
+    }
+
+    private void DodajKnjiguAutoru(Autor autor, Knjiga knjiga)
+    {
+        if (!autor.KnjigaIds.Contains(knjiga.Id))
+            autor.KnjigaIds.Add(knjiga.Id);
+
+        if (!knjiga.AutorIds.Contains(autor.Id))
+            knjiga.AutorIds.Add(autor.Id);
+
+        _autorService.Update(autor);
+        _knjigaService.Update(knjiga);
+    }
+
+    private void UkloniKnjiguSaAutora(Autor autor, Knjiga knjiga)
+    {
+        autor.KnjigaIds.Remove(knjiga.Id);
+        knjiga.AutorIds.Remove(autor.Id);
+
+        _autorService.Update(autor);
+        _knjigaService.Update(knjiga);
+    }
+
+    private Autor? GetTrenutniAutorZaKnjigu(Knjiga knjiga)
+    {
+        var sviAutori = _autorService.GetAll();
+        return sviAutori.FirstOrDefault(a => knjiga.AutorIds.Contains(a.Id) || a.KnjigaIds.Contains(knjiga.Id));
+    }
+
+    private void DodajAutoraNaKnjigu(Knjiga knjiga, Autor autor)
+    {
+        knjiga.AutorIds.Clear();
+        knjiga.AutorIds.Add(autor.Id);
+
+        if (!autor.KnjigaIds.Contains(knjiga.Id))
+            autor.KnjigaIds.Add(knjiga.Id);
+
+        _knjigaService.Update(knjiga);
+        _autorService.Update(autor);
+    }
+
+    private void UkloniAutoraSaKnjige(Knjiga knjiga, Autor autor)
+    {
+        knjiga.AutorIds.Remove(autor.Id);
+        autor.KnjigaIds.Remove(knjiga.Id);
+
+        _knjigaService.Update(knjiga);
+        _autorService.Update(autor);
     }
 
     // --- BRISANJE (#brisanje_autora, #brisanje_knjige) ---

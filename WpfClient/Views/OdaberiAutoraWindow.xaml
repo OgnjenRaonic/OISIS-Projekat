@@ -1,0 +1,31 @@
+<Window x:Class="WpfClient.Views.OdaberiAutoraWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Izaberi autora"
+        Height="300" Width="340"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+    <Grid Margin="14">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ListBox x:Name="lstAutori" Grid.Row="0" SelectionChanged="LstAutori_SelectionChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <Run Text="{Binding Ime}"/>
+                        <Run Text=" "/>
+                        <Run Text="{Binding Prezime}"/>
+                    </TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+            <Button Content="Odustani" Width="85" Height="28" Margin="0,0,8,0" IsCancel="True" Click="BtnOdustani_Click"/>
+            <Button x:Name="btnPotvrdi" Content="Potvrdi" Width="85" Height="28" IsEnabled="False" Click="BtnPotvrdi_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
