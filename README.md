@@ -11,7 +11,7 @@ Informacioni sistem uprave sajma knjiga – desktop aplikacija za referenta sajm
 
 ## Raspodela posla
 
-### Student 1 – (ime i prezime, broj indeksa)
+### Student 1 – (Ognjen Raonić, RA204-2022)
 
 Domaći zadatak 1:
 
