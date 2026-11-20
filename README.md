@@ -22,5 +22,11 @@ Domaći zadatak 1:
 
 ### Student 2 – (ime i prezime, broj indeksa)
 
-- model podataka: `Autor`, `Knjiga`, `Adresa`
-- (dopuniti)
+Domaći zadatak 2:
+
+- model podataka: `Autor`, `Knjiga`, `Adresa` (`Models`)
+- prikazi: `DodajAutora`, `DodajKnjigu`, ,`IzmeniAutora`, `IzmeniKnjigu` (`Views`)
+- update: `LocalizationManager` (`Utils`)
+- servisi: `AdresaService`, `AutorService`, `KnjigaService` (`Services`)
+- liste: `AdresaDAO`, `AutorDAO`, `KnjigaDAO` (`DAO`)
+- implementacija i poziv svih elemenata u `MainWindow` (`WpfClient`)
