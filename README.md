@@ -29,3 +29,4 @@ Domaći zadatak 2:
 - update: `LocalizationManager` (`Utils`)
 - servisi: `AdresaService`, `AutorService`, `KnjigaService` (`Services`)
 - liste: `AdresaDAO`, `AutorDAO`, `KnjigaDAO` (`DAO`)
+- implementacija i poziv svih elemenata u `MainWindow` (`WpfClient`)
