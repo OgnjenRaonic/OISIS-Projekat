@@ -20,7 +20,7 @@ Domaći zadatak 1:
 - servisi: `PosetilacService`, `KupovinaService`, `IzdavacService`
 - 8.1–8.4: dodavanje, izmena, brisanje i prikaz posetilaca, kupovina i izdavača u konzoli (`ConsoleClient`)
 
-### Student 2 – (ime i prezime, broj indeksa)
+### Student 2 – (Jelena Jokšić, RA20-2022)
 
 Domaći zadatak 2:
 
